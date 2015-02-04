@@ -34,8 +34,36 @@ public class MainActivity extends ActionBarActivity {
         //Use listCodes.size() to refer to the number of courses in the list
     }
 
-    public void buttonClicked(View v) {
+    public void Calculate(){
+        int cr = 0;         // Credits
+        double gp = 0.0;    // Grade points
+        double gpa = 0.0;   // Grade point average
+
+        //for(int i=0)
+        {
+
+        }
+
     }
+
+    public void buttonClicked(View v) {
+        int id = v.getId();
+
+        switch (id) {
+            case R.id.button2:
+                Intent i = new Intent(this, CourseActivity.class);
+                startActivity(i);
+                break;
+            case R.id.button4:
+                Intent j = new Intent(this, CourseListActivity.class);
+                startActivity(j);
+                break;
+        }
+
+
+    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
