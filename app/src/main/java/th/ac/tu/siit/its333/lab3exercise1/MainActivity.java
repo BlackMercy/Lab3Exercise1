@@ -39,9 +39,23 @@ public class MainActivity extends ActionBarActivity {
         double gp = 0.0;    // Grade points
         double gpa = 0.0;   // Grade point average
 
-        //for(int i=0)
+        for(int i=0;i<listCodes.size();i++)
         {
+            String s = listGrades.get(i);
+            int a = listCredits.get(i);
 
+            switch(s){
+                case "A" : gp += 4 * a; break;
+                case "B+" : gp +=3.5 * a; break;
+                case "B" : gp += 3 * a; break;
+                case "C+" : gp += 2.5 * a; break;
+                case "C" : gp += 2 * a; break;
+                case "D+" : gp += 1.5 * a; break;
+                case "D" : gp += 1 * a; break;
+                case "F" : gp += 0 * a; break;
+            }
+
+            cr+=a;
         }
 
     }
@@ -52,15 +66,35 @@ public class MainActivity extends ActionBarActivity {
         switch (id) {
             case R.id.button2:
                 Intent i = new Intent(this, CourseActivity.class);
-                startActivity(i);
+                startActivityForResult(i,29);
                 break;
             case R.id.button4:
                 Intent j = new Intent(this, CourseListActivity.class);
+
+                String s = "List of Courses";
+                for (int k=0;k<listCodes.size();k++){
+                    s+="\n";
+                    s+=listCodes.get(k)+" ";
+                    s+="("+listCredits.get(k).toString()+" credits)";
+                    s+=" = "+listGrades.get(k);
+                }
+                j.putExtra("list_of_codes",s);
+
                 startActivity(j);
                 break;
+
+            case R.id.button:
+                int cr = 0;         // Credits
+                double gp = 0.0;    // Grade points
+                double gpa = 0.0;
+
+                listCodes = new ArrayList<String>();
+                listCredits = new ArrayList<Integer>();
+                listGrades = new ArrayList<String>();
+
+                Calculate();
+                break;
         }
-
-
     }
 
 
@@ -68,6 +102,21 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Values from child activity
+        if (requestCode == 29) {
+            if(resultCode == RESULT_OK){
+                String courseCode = data.getStringExtra("toAct1");
+                int courseCredit = data.getIntExtra("toAct2",0);
+                String courseGrade = data.getStringExtra("toAct3");
+                listCodes.add(courseCode);
+                listCredits.add(courseCredit);
+                listGrades.add(courseGrade);
+
+                Calculate();
+            }
+            else if(resultCode == RESULT_CANCELED){
+                //Write your code if there's no result
+            }
+        }
     }
 
     @Override
