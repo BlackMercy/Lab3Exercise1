@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class MainActivity extends ActionBarActivity {
     public void Calculate(){
         int cr = 0;         // Credits
         double gp = 0.0;    // Grade points
-        double gpa = 0.0;   // Grade point average
+        double GPA = 0.0;   // Grade point average
 
         for(int i=0;i<listCodes.size();i++)
         {
@@ -54,9 +55,24 @@ public class MainActivity extends ActionBarActivity {
                 case "D" : gp += 1 * a; break;
                 case "F" : gp += 0 * a; break;
             }
-
             cr+=a;
         }
+        GPA = gp/cr;
+
+        if(cr == 0){
+            GPA = 0;
+        }
+
+        TextView tvGP = (TextView)findViewById(R.id.tvGP);
+        TextView tvCR = (TextView)findViewById(R.id.tvCR);
+        String total = String.valueOf(GPA);
+        tvGP.setText(gp+"");
+        tvCR.setText(cr+"");
+
+        gpa = GPA;
+
+        TextView tvGPA = (TextView)findViewById(R.id.tvGPA);
+        tvGPA.setText(Double.toString(gpa));
 
     }
 

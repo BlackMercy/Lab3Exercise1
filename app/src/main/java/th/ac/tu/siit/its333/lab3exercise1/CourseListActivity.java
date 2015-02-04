@@ -1,17 +1,25 @@
 package th.ac.tu.siit.its333.lab3exercise1;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
 public class CourseListActivity extends ActionBarActivity {
 
+    String input;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
+
+        Intent i = this.getIntent();
+        input = i.getStringExtra("list_of_codes");
+        TextView tvInput = (TextView)findViewById(R.id.tvList);
+        tvInput.setText(input);
     }
 
 
